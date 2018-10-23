@@ -1,5 +1,6 @@
 package programmes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -10,29 +11,48 @@ public class DuplicateElementsFromArray {
 
 	public static void main(String[] args) {
 		
-		String names[] = {"Java","JavaScript","Ruby","C","Python","Java","C"};
+		String str = "This is java and java is powerfull language and java is open source tool";
+		
+		String names[] = str.split(" ");
+		
+		//String names[] = {"Java","JavaScript","Ruby","C","Python","Java","C"};
 		
 		//1. Compare each element ---worst solution
+		ArrayList<String> result = new ArrayList<String>();
 		for(int i=0;i<names.length;i++)
 		{
+			int count=1;
+			if(!result.contains(names[i]))
+		  {
 			for(int j=i+1;j<names.length;j++)
 			{
 				if(names[i].equals(names[j]))
 				{
-					System.out.println("Duplicate element is :: "+names[i]);
+					count++;
 				}
 			}
+			if(count>1)
+			{
+				System.out.println("Duplicate element is :: "+names[i]+":: Number of Instances-->"+count);
+				result.add(names[i]);
+			}
+		  }
 		}
 		
 		System.out.println("********************");
-				
+			
 		//2. Using HashSet : Part of JavaCollection --> it stores unique values
 		Set<String> store = new HashSet<String>();
+		ArrayList<String> result1 = new ArrayList<String>();
 		for(String name :names)
 		{
 			if(store.add(name)==false)
 			{
+				if(!result1.contains(name))
+				{
 				System.out.println("Duplicate element is :: "+name);
+				result1.add(name);
+				}
 			}
 		}
 		
@@ -59,7 +79,7 @@ public class DuplicateElementsFromArray {
 		{
 			if(entry.getValue()>1)
 			{
-				System.out.println("Duplicate element is :: "+entry.getKey());
+				System.out.println("Duplicate element is :: "+entry.getKey()+":: Number of Instances -->"+entry.getValue());
 			}
 		}
 	}
